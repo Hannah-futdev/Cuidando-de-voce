@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste localStorage</title>
+</head>
+<body>
+    <h1>Teste do localStorage</h1>
+    <button onclick="testLocalStorage()">Testar localStorage</button>
+    <button onclick="saveProfile()">Salvar Perfil</button>
+    <button onclick="loadProfile()">Carregar Perfil</button>
+    <div id="result"></div>
+
+    <script>
+        function testLocalStorage() {
+            try {
+                localStorage.setItem('test', 'funcionando');
+                const result = localStorage.getItem('test');
+                document.getElementById('result').innerHTML = 'localStorage: ' + (result === 'funcionando' ? '✅ FUNCIONANDO' : '❌ PROBLEMA');
+            } catch (error) {
+                document.getElementById('result').innerHTML = 'Erro: ' + error.message;
+            }
+        }
+
+        function saveProfile() {
+            const profile = {
+                name: 'Maria',
+                image: 'assets/maria (2).png'
+            };
+            localStorage.setItem('activeProfile', JSON.stringify(profile));
+            document.getElementById('result').innerHTML = 'Perfil salvo: ' + JSON.stringify(profile);
+        }
+
+        function loadProfile() {
+            const data = localStorage.getItem('activeProfile');
+            if (data) {
+                const profile = JSON.parse(data);
+                document.getElementById('result').innerHTML = 'Perfil carregado: ' + JSON.stringify(profile);
+            } else {
+                document.getElementById('result').innerHTML = 'Nenhum perfil encontrado';
+            }
+        }
+    </script>
+</body>
+</html>

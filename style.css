@@ -1,0 +1,153 @@
+/* Variáveis para cores e temas */
+:root {
+    /* Tema claro (padrão) */
+    --bg-color: #f5f5dc; /* Bege claro */
+    --text-color: #1e5c3b; /* Verde oliva */
+    --accent-color: #1e5c3b; /* Verde oliva para destaques */
+    --button-bg: #ffffff;
+    --button-text: #1e5c3b;
+    --profile-bg: #ffffff;
+    --profile-border: #e0e0e0;
+}
+
+/* Tema escuro */
+[data-theme="dark"] {
+    --bg-color: #11253b; /* Azul grafite escuro */
+    --text-color: #e7f2ff; /* Texto suave claro */
+    --accent-color: #6a9cb6; /* Azul de saúde suave */
+    --button-bg: #1d3047;
+    --button-text: #e7f2ff;
+    --profile-bg: #172638;
+    --profile-border: #3a5873;
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo da página */
+body {
+    font-family: 'Playfair Display', serif; /* Fonte elegante para saúde */
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Botão de toggle modo claro/escuro */
+#theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 2px solid var(--accent-color);
+    border-radius: 50px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+#theme-toggle:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+
+/* Main container */
+main {
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+}
+
+/* Header */
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--accent-color);
+}
+
+header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    font-weight: 400;
+}
+
+/* Seção de perfis */
+.profiles {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.profile {
+    background-color: var(--profile-bg);
+    border: 2px solid var(--profile-border);
+    border-radius: 15px;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+.profile h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--accent-color);
+}
+
+.profile p {
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .profiles {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile {
+        width: 80%;
+        max-width: 250px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header h2 {
+        font-size: 1.2rem;
+    }
+}

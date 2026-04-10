@@ -1,0 +1,90 @@
+// Dark/Light Mode Toggle
+const toggleButton = document.getElementById('theme-toggle');
+const body = document.body;
+
+
+
+// Verifica se existe preferência salva no localStorage
+const savedTheme = localStorage.getItem('theme') || 'light';
+body.setAttribute('data-theme', savedTheme);
+updateToggleButton(savedTheme);
+
+// Event listener para o botão de toggle
+toggleButton.addEventListener('click', () => {
+    const currentTheme = body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateToggleButton(newTheme);
+});
+
+// Atualiza o texto/ícone do botão de acordo com o tema
+function updateToggleButton(theme) {
+    if (theme === 'dark') {
+        toggleButton.textContent = '☀️ Modo Claro';
+    } else {
+        toggleButton.textContent = '🌙 Modo Escuro';
+    }
+}
+
+// Sincroniza com preferências do sistema (opcional)
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+prefersDark.addEventListener('change', (e) => {
+    const newTheme = e.matches ? 'dark' : 'light';
+    body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateToggleButton(newTheme);
+});
+
+// === FUNCIONALIDADE DE PERFIL ATIVO ===
+
+// Função para salvar perfil no localStorage
+function saveProfile(name, imageSrc) {
+    const profile = {
+        name: name,
+        image: imageSrc
+    };
+    localStorage.setItem('activeProfile', JSON.stringify(profile));
+    console.log('Perfil salvo:', profile);
+}
+
+// Função para configurar os perfis
+function setupProfiles() {
+    const profiles = document.querySelectorAll('.profile');
+    console.log('Perfis encontrados:', profiles.length);
+
+    profiles.forEach(function(profile, index) {
+        profile.style.cursor = 'pointer'; // Adiciona cursor pointer
+
+        profile.addEventListener('click', function() {
+            console.log('Perfil clicado:', index);
+
+            const img = profile.querySelector('img');
+            const nameElement = profile.querySelector('h4');
+
+            if (img && nameElement) {
+                const name = nameElement.textContent.trim();
+                const imageSrc = img.getAttribute('src');
+
+                console.log('Nome:', name);
+                console.log('Imagem:', imageSrc);
+
+                saveProfile(name, imageSrc);
+
+                // Redireciona para a página do catálogo
+                window.location.href = 'catalogo/catalogo.html';
+            } else {
+                console.log('Elementos não encontrados no perfil', index);
+            }
+        });
+    });
+}
+
+// Executa quando o DOM estiver pronto
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupProfiles);
+} else {
+    setupProfiles();
+}
+
